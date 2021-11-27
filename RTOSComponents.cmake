@@ -5,6 +5,9 @@ target_sources(RTOSComponents PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/src/AgentInterface.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/BlinkAgent.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/WatchdogBlinkAgent.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/RGBLEDAgent.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/RGBpwm.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/ColorUtils.cpp
 )
 
 # Add include directory
@@ -13,5 +16,5 @@ target_include_directories(RTOSComponents PUBLIC
 )
 
 # Add the standard library to the build
-target_link_libraries(RTOSComponents PUBLIC pico_stdlib FreeRTOS )
+target_link_libraries(RTOSComponents PUBLIC pico_stdlib FreeRTOS hardware_pwm)
 
