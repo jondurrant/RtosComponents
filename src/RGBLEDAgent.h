@@ -44,7 +44,7 @@ public:
 	 * @param b - Blue
 	 * @return
 	 */
-	BaseType_t set(RGBMode m, unsigned char r, unsigned char g, unsigned char b);
+	bool set(RGBMode m, unsigned char r, unsigned char g, unsigned char b);
 
 	/***
 	 *  create the vtask

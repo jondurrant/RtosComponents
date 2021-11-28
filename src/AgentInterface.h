@@ -37,6 +37,12 @@ public:
 	 */
 	virtual unsigned int getStakHighWater();
 
+	/***
+	 * Get the FreeRTOS task being used
+	 * @return
+	 */
+	virtual TaskHandle_t getTask();
+
 protected:
 
 	//The task

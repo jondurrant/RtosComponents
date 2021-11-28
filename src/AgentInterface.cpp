@@ -40,3 +40,12 @@ unsigned int AgentInterface::getStakHighWater(){
 	else
 		return 0;
 }
+
+
+/***
+* Get the FreeRTOS task being used
+* @return
+*/
+TaskHandle_t AgentInterface::getTask(){
+	return xHandle;
+}

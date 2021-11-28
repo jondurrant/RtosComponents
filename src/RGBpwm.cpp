@@ -78,7 +78,10 @@ void RGBpwm::setRGBb(unsigned char r, unsigned char g, unsigned char b){
 }
 
 void RGBpwm::setMode(RGBMode m){
-	prevMode = mode;
+
+	if (mode != RGBModeOnce){
+		prevMode = mode;
+	}
 	mode = m;
 	changed = true;
 }
@@ -94,9 +97,11 @@ void RGBpwm::tick(){
 		switch(mode){
 		case RGBModeOff:
 			off();
+			state = false;
 			break;
 		case RGBModeOn:
 			on();
+			state = true;
 			break;
 		case RGBModeFast:
 			tickCount = 0;
@@ -110,8 +115,13 @@ void RGBpwm::tick(){
 			break;
 		case RGBModeOnce:
 			tickCount = 0;
-			state = false;
-			off();
+			if (state){
+				state = false;
+				off();
+			} else {
+				state = true;
+				on();
+			}
 			break;
 		}
 	}

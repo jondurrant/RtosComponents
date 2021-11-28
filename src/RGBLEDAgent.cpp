@@ -7,6 +7,7 @@
 
 #include "FreeRTOS.h"
 #include "RGBLEDAgent.h"
+#include <stdio.h>
 
 
 RGBLEDAgent::~RGBLEDAgent() {
@@ -17,16 +18,19 @@ RGBLEDAgent::RGBLEDAgent(unsigned char redPin, unsigned char greenPin, unsigned 
 	rgbPWM.setup(redPin, greenPin, bluePin);
 }
 
-BaseType_t RGBLEDAgent::set(RGBMode m, unsigned char r, unsigned char g, unsigned char b){
+bool RGBLEDAgent::set(RGBMode m, unsigned char r, unsigned char g, unsigned char b){
 	unsigned char cmd[4];
 	cmd[0] = m;
 	cmd[1]= r;
 	cmd[2] = g;
 	cmd[3] = b;
-	return xQueueSendToBack( xRGBQueue,
-            ( void * ) &cmd,
-            ( TickType_t ) 10
-		);
+	if (xRGBQueue != NULL){
+		return (xQueueSendToBack( xRGBQueue,
+				( void * ) &cmd,
+				( TickType_t ) 10
+			) == pdPASS);
+	}
+	return false;
 }
 
 bool RGBLEDAgent::start(UBaseType_t priority){
@@ -40,7 +44,7 @@ bool RGBLEDAgent::start(UBaseType_t priority){
 			"RGB",   /* Text name for the task. */
 			100,             /* Stack size in words, not bytes. */
 			( void * ) this,    /* Parameter passed into the task. */
-			tskIDLE_PRIORITY,/* Priority at which the task is created. */
+			priority,/* Priority at which the task is created. */
 			&xHandle
 		);
 		return (xReturned == pdPASS);
@@ -68,7 +72,7 @@ void RGBLEDAgent::run(){
     {
     	if (uxQueueMessagesWaiting(xRGBQueue)> 0){
     		if( xQueueReceive( xRGBQueue,
-				 cmd, ( TickType_t ) 10 ) == pdPASS ){
+				 cmd, ( TickType_t ) 0 ) == pdPASS ){
     			rgbPWM.setRGBb(cmd[1], cmd[2], cmd[3]);
     			rgbPWM.setMode((RGBMode)cmd[0]);
     		}
