@@ -14,7 +14,7 @@
 
 class BlinkAgent : public AgentInterface{
 public:
-	BlinkAgent(unsigned int delay = 500);
+	BlinkAgent(uint8_t ledPad, unsigned int delay = 500);
 	virtual ~BlinkAgent();
 
 	/***
@@ -33,7 +33,7 @@ protected:
 
 	unsigned int delay;
 
-	const uint8_t LED_PIN = PICO_DEFAULT_LED_PIN;
+	uint8_t LED_PIN;
 
 };
 

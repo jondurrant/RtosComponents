@@ -8,8 +8,10 @@
 #include "WatchdogBlinkAgent.h"
 #include "hardware/watchdog.h"
 
-WatchdogBlinkAgent::WatchdogBlinkAgent(unsigned int delay,
-		uint8_t watchdogSeconds) : BlinkAgent(delay) {
+WatchdogBlinkAgent::WatchdogBlinkAgent(
+		uint8_t ledPad,
+		unsigned int delay,
+		uint8_t watchdogSeconds) : BlinkAgent(ledPad, delay) {
 	watchdogTime = watchdogSeconds;
 }
 

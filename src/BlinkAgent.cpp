@@ -8,7 +8,8 @@
 #include "BlinkAgent.h"
 
 
-BlinkAgent::BlinkAgent(unsigned int delay) {
+BlinkAgent::BlinkAgent(uint8_t ledPad, unsigned int delay) {
+	LED_PIN = ledPad;
 	this->delay = delay;
 	gpio_init(LED_PIN);
 	gpio_set_dir(LED_PIN, GPIO_OUT);

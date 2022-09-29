@@ -13,7 +13,7 @@
 
 class WatchdogBlinkAgent : public BlinkAgent {
 public:
-	WatchdogBlinkAgent(unsigned int delay = 500, uint8_t watchdogSeconds=8);
+	WatchdogBlinkAgent(uint8_t ledPad, unsigned int delay = 500, uint8_t watchdogSeconds=8);
 	virtual ~WatchdogBlinkAgent();
 
 	/***
