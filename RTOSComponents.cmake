@@ -16,5 +16,5 @@ target_include_directories(RTOSComponents PUBLIC
 )
 
 # Add the standard library to the build
-target_link_libraries(RTOSComponents PUBLIC pico_stdlib FreeRTOS hardware_pwm)
+target_link_libraries(RTOSComponents PUBLIC pico_stdlib FreeRTOS-Kernel hardware_pwm)
 
